@@ -15,9 +15,62 @@ These extensions allow you to better manage your telemetry by adding to it, or f
     dotnet add package ApplicationInsightsTelemetryExtensions
     ```
 
-1. Restore NuGet package:
+2. Restore NuGet package:
     ```console
     dotnet restore
+    ```
+3. Add TelemetryProcessor
+
+ASP.NET Framework (AppStart in Global.asax)
+
+   ```csharp
+   protected void Application_Start()
+   {
+      // ...
+      var builder = TelemetryConfiguration.Active.TelemetryProcessorChainBuilder;
+      builder.Use((next) => new SuccessfulDependencyFilter(next));
+
+      // If you have more processors:
+      builder.Use((next) => new AnotherProcessor(next));
+      builder.Build();
+   }
+   ```
+
+ASP.NET Core (Startup.cs)
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+    configuration.TelemetryProcessorChainBuilder
+                        .Use(next => new BotRequestTracking(next))
+                        .Build();
+}
+```
+
+4. Add TelemetryInitializer
+
+ASP.NET Framework (AppStart in Global.asax)
+
+   ```csharp
+    protected void Application_Start()
+    {
+        // ...
+        TelemetryConfiguration.Active.TelemetryInitializers
+        .Add(new MyTelemetryInitializer());
+    }
+   ```
+
+ASP.NET Core (Startup.cs)
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    var initializer = new SuccessfulDependencyFilter();
+    var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+    configuration.TelemetryInitializers.Add(initializer);
+}
+```
 
 ## Acknowledgements
 
