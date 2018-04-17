@@ -3,9 +3,9 @@
   <PropertyGroup>
     <Description>Set of Telemetry Processors and Initializers useful to extend Telemetry Collection with Application Insights.</Description>
     <Authors>Isaac Levin</Authors>
-    <Version>0.1.0-$(VersionSuffix)</Version>
-    <Version Condition="$(VersionSuffix) == ''">0.1.0</Version>
-    <Version Condition="$(VersionSuffix) != ''">0.1.0-$(VersionSuffix)</Version>
+    <Version>0.2.0-$(VersionSuffix)</Version>
+    <Version Condition="$(VersionSuffix) == ''">0.2.0</Version>
+    <Version Condition="$(VersionSuffix) != ''">0.2.0-$(VersionSuffix)</Version>
     <Copyright>Copyright © Isaac Levin</Copyright>
     <PackageLicenseUrl>https://github.com/isaac2004/ApplicationInsightsTelemetryExtensions/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/isaac2004/ApplicationInsightsTelemetryExtensions</PackageProjectUrl>
