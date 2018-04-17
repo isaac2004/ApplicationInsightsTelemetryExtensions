@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace ApplicationInsightsTelemetryExtensions.Processors
+namespace ApplicationInsightsTelemetryExtensions
 {
     /// <summary>
     /// Processor filters out requests that return a 404

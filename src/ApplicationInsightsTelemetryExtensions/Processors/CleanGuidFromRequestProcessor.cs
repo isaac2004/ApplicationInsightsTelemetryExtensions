@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace ApplicationInsightsTelemetryExtensions.Processors
+namespace ApplicationInsightsTelemetryExtensions
 {
     /// <summary>
     /// Processor scrubs all guids from requests. This is handy if Api Keys in the form of Guids are passed in the Http Request

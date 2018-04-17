@@ -1,30 +1,34 @@
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
-/// <summary>
-/// Processor filters out requests for robots.txt, which can skew request numbers if not filtered in reporting
-/// </summary>
-public class BotRequestTracking : ITelemetryProcessor
+
+namespace ApplicationInsightsTelemetryExtensions
 {
-    public BotRequestTracking(ITelemetryProcessor next)
+    /// <summary>
+    /// Processor filters out requests for robots.txt, which can skew request numbers if not filtered in reporting
+    /// </summary>
+    public class BotRequestTracking : ITelemetryProcessor
     {
-        Next = next;
-    }
-
-    private ITelemetryProcessor Next { get; set; }
-
-    public void Process(ITelemetry item)
-    {
-        var request = item as RequestTelemetry;
-        if (request != null)
+        public BotRequestTracking(ITelemetryProcessor next)
         {
-
-            if (request.Name.ToLower().Contains("robots.txt"))
-            {
-                return;
-            }
+            Next = next;
         }
 
-        Next.Process(item);
+        private ITelemetryProcessor Next { get; set; }
+
+        public void Process(ITelemetry item)
+        {
+            var request = item as RequestTelemetry;
+            if (request != null)
+            {
+
+                if (request.Name.ToLower().Contains("robots.txt"))
+                {
+                    return;
+                }
+            }
+
+            Next.Process(item);
+        }
     }
 }
